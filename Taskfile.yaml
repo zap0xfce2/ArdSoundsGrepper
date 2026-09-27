@@ -4,6 +4,11 @@ silent: true
 
 vars:
   APP: ardsoundsgrepper
+  RELEASE_TARGETS: linux/amd64 linux/arm64 darwin/amd64 darwin/arm64
+
+# go.mod verlangt eine neuere Go-Version als ggf. lokal installiert (Alpine setzt GOTOOLCHAIN=local)
+env:
+  GOTOOLCHAIN: auto
 
 tasks:
   default:
@@ -23,6 +28,25 @@ tasks:
     desc: Führt alle Go-Tests aus
     cmds:
       - go test ./...
+
+  release:
+    desc: Baut Release-Binaries (linux/darwin, amd64/arm64) und veröffentlicht sie als GitHub-Release
+    deps: [test]
+    vars:
+      VERSION:
+        sh: date +v%y%m%d%H%M
+    cmds:
+      - /bin/rm -rf dist && mkdir dist
+      - for: { var: RELEASE_TARGETS }
+        cmd: |
+          os={{splitList "/" .ITEM | first}}; arch={{splitList "/" .ITEM | last}}
+          name={{.APP}}-{{.VERSION}}-$os-$arch
+          mkdir -p dist/$name
+          CGO_ENABLED=0 GOOS=$os GOARCH=$arch go build -trimpath -ldflags "-s -w -X main.version={{.VERSION}}" -o dist/$name/{{.APP}} ./cmd/{{.APP}}
+          tar -czf dist/$name.tar.gz -C dist/$name {{.APP}}
+      - cd dist && sha256sum *.tar.gz > SHA256SUMS
+      - gh release create {{.VERSION}} dist/*.tar.gz dist/SHA256SUMS --target master --title {{.VERSION}} --generate-notes
+      - 'echo "veröffentlicht: {{.VERSION}}"'
 
   lint:
     desc: shellcheck, go vet und gofmt

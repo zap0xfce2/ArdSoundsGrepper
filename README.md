@@ -12,6 +12,8 @@ Lädt Folgen von [ARD-Sounds](https://www.ardsounds.de)-Sendungen als MP3 – in
 
 ## Build
 
+Fertige Binaries für Linux und macOS gibt es unter [Releases](https://github.com/zap0xfce2/ArdSoundsGrepper/releases).
+
 Voraussetzungen: Go ≥ 1.27, [go-task](https://taskfile.dev).
 
 ```bash
@@ -19,6 +21,7 @@ task          # baut bin/ardsoundsgrepper (Version vYYMMDDhhmm = Build-Zeitpunkt
 task test     # alle Tests (offline)
 task lint     # shellcheck, go vet, gofmt
 task smoke    # Live-Test gegen die echte API (lädt eine Folge in ein Temp-Verzeichnis)
+task release  # Binaries für linux/darwin (amd64/arm64) bauen und als GitHub-Release veröffentlichen (braucht `gh`)
 ```
 
 ## TUI
