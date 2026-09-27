@@ -51,7 +51,7 @@ tasks:
   lint:
     desc: shellcheck, go vet und gofmt
     cmds:
-      - shellcheck ardsounds-dl.sh
+      - 'test ! -f poc/ardsounds-dl.sh || shellcheck poc/ardsounds-dl.sh'
       - go vet ./...
       - test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
       - echo "lint ok"
@@ -64,7 +64,7 @@ tasks:
   download:
     desc: "Bash-Downloader, z. B. task download -- Mimi ~/Music/Mimi"
     cmds:
-      - ./ardsounds-dl.sh {{.CLI_ARGS}}
+      - ./poc/ardsounds-dl.sh {{.CLI_ARGS}}
 
   poc:
     desc: Startet das TUI-Mockup auf http://localhost:8765
