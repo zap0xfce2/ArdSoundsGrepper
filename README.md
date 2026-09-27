@@ -1,4 +1,4 @@
-# ArdSoundsGrepper
+# ARD SoundsGrepper
 
 Lädt Folgen von [ARD-Sounds](https://www.ardsounds.de)-Sendungen als MP3 – interaktiv per Terminal-Oberfläche (TUI) oder automatisch per `sync` für abonnierte Sendungen. Bereits vorhandene Folgen werden erkannt, geladen wird nur, was fehlt.
 
