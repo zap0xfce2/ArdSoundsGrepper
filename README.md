@@ -4,6 +4,8 @@ Lädt Folgen von [ARD-Sounds](https://www.ardsounds.de)-Sendungen als MP3 – in
 
 > Nur zur privaten Nutzung – die Inhalte sind urheberrechtlich geschützt.
 
+![ArdSoundsGrepper TUI: Folgenliste einer Sendung](assets/tui.svg)
+
 ## KI-Assistierte Entwicklung
 > [!IMPORTANT]
 > Dieses Projekt wurde mit erheblicher KI-Unterstützung erstellt, und das ist beabsichtigt und transparent.
