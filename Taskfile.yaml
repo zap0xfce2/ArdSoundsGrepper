@@ -1,0 +1,48 @@
+version: "3"
+
+silent: true
+
+vars:
+  APP: ardsoundsgrepper
+
+tasks:
+  default:
+    cmds:
+      - task: build
+
+  build:
+    desc: Baut die Go-App nach bin/ (Version vYYMMDDhhmm)
+    vars:
+      BUILD_DATE:
+        sh: date +%y%m%d%H%M
+    cmds:
+      - go build -ldflags "-X main.version=v{{.BUILD_DATE}}" -o bin/{{.APP}} ./cmd/{{.APP}}
+      - 'echo "gebaut: bin/{{.APP}} v{{.BUILD_DATE}}"'
+
+  test:
+    desc: Führt alle Go-Tests aus
+    cmds:
+      - go test ./...
+
+  lint:
+    desc: shellcheck, go vet und gofmt
+    cmds:
+      - shellcheck ardsounds-dl.sh
+      - go vet ./...
+      - test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - echo "lint ok"
+
+  smoke:
+    desc: Live-Test gegen die echte API (Netz nötig, lädt eine Folge in ein Temp-Verzeichnis)
+    cmds:
+      - go test -tags smoke -run Smoke -v ./internal/media/
+
+  download:
+    desc: "Bash-Downloader, z. B. task download -- Mimi ~/Music/Mimi"
+    cmds:
+      - ./ardsounds-dl.sh {{.CLI_ARGS}}
+
+  poc:
+    desc: Startet das TUI-Mockup auf http://localhost:8765
+    cmds:
+      - python3 -m http.server 8765 -d poc
