@@ -49,9 +49,8 @@ tasks:
       - 'echo "veröffentlicht: {{.VERSION}}"'
 
   lint:
-    desc: shellcheck, go vet und gofmt
+    desc: go vet und gofmt
     cmds:
-      - 'test ! -f poc/ardsounds-dl.sh || shellcheck poc/ardsounds-dl.sh'
       - go vet ./...
       - test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
       - echo "lint ok"
@@ -60,11 +59,6 @@ tasks:
     desc: Live-Test gegen die echte API (Netz nötig, lädt eine Folge in ein Temp-Verzeichnis)
     cmds:
       - go test -tags smoke -run Smoke -v ./internal/media/
-
-  download:
-    desc: "Bash-Downloader, z. B. task download -- Mimi ~/Music/Mimi"
-    cmds:
-      - ./poc/ardsounds-dl.sh {{.CLI_ARGS}}
 
   poc:
     desc: Startet das TUI-Mockup auf http://localhost:8765

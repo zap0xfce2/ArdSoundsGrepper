@@ -19,7 +19,7 @@ Voraussetzungen: Go ≥ 1.27, [go-task](https://taskfile.dev).
 ```bash
 task          # baut bin/ardsoundsgrepper (Version vYYMMDDhhmm = Build-Zeitpunkt)
 task test     # alle Tests (offline)
-task lint     # shellcheck, go vet, gofmt
+task lint     # go vet, gofmt
 task smoke    # Live-Test gegen die echte API (lädt eine Folge in ein Temp-Verzeichnis)
 task release  # Binaries für linux/darwin (amd64/arm64) bauen und als GitHub-Release veröffentlichen (braucht `gh`)
 ```
