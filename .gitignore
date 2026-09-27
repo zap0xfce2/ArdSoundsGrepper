@@ -1,6 +1,19 @@
-CLAUDE.md
-*poc*
-*docs*
-.serena
-.superpowers
-bin
+# Lokal nicht versioniert
+/CLAUDE.md
+/poc/
+/docs/
+/.serena/
+/.superpowers/
+
+# Build-Output
+/bin/
+
+# Go-Test-Artefakte
+*.test
+*.out
+
+# Abgebrochene Downloads
+*.part
+
+# OS
+.DS_Store
