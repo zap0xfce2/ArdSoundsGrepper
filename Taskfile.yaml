@@ -59,8 +59,3 @@ tasks:
     desc: Live-Test gegen die echte API (Netz nötig, lädt eine Folge in ein Temp-Verzeichnis)
     cmds:
       - go test -tags smoke -run Smoke -v ./internal/media/
-
-  poc:
-    desc: Startet das TUI-Mockup auf http://localhost:8765
-    cmds:
-      - python3 -m http.server 8765 -d poc
